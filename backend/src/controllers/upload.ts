@@ -13,7 +13,7 @@ export const uploadFile = async (req: Request, res: Response, next: NextFunction
     }
 
     return res.json({
-      fileName: `/temp/${file.filename}`,
+      fileName: file.filename,
       originalName: file.originalname,
     });
   } catch (error) {
@@ -26,8 +26,8 @@ export const moveFileToPermanentLocation = async (
   permanentDir: string,
 ): Promise<string> => {
   try {
-    const tempPath = path.join('uploads/temp', tempFileName);
-    const permanentPath = path.join('uploads', permanentDir, tempFileName);
+    const tempPath = path.join('src/public/uploads/temp/', tempFileName);
+    const permanentPath = path.join('src/public/uploads', permanentDir, tempFileName);
 
     await fs.mkdir(path.dirname(permanentPath), { recursive: true });
 
@@ -39,7 +39,7 @@ export const moveFileToPermanentLocation = async (
 
     await fs.rename(tempPath, permanentPath);
 
-    return `/temp/${permanentDir}/${tempFileName}`;
+    return `/uploads/${permanentDir}/${tempFileName}`;
   } catch (_error) {
     throw new InternalServerError('Ошибка перемещения файла');
   }
@@ -47,7 +47,7 @@ export const moveFileToPermanentLocation = async (
 
 export const cleanupTempFile = async (fileName: string): Promise<void> => {
   try {
-    const filePath = path.join('uploads/temp', fileName);
+    const filePath = path.join('src/public/uploads/temp/', fileName);
     await fs.unlink(filePath);
   } catch (error) {
     logger.error(`Не удалось удалить временный файл: ${fileName}`, error);

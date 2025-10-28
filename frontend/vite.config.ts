@@ -3,9 +3,9 @@ import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), tsconfigPaths({root: __dirname})],
+  plugins: [react(), tsconfigPaths({ root: __dirname })],
+  base: '/',
   resolve: {
     alias: {
       $fonts: resolve('./src/vendor/fonts'),
@@ -13,7 +13,7 @@ export default defineConfig({
     }
   },
   build: {
-    assetsInlineLimit:0,
+    assetsInlineLimit: 0,
   },
   css: {
     preprocessorOptions: {

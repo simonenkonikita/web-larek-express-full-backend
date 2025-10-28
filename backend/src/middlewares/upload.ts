@@ -5,9 +5,9 @@ import fs from 'fs/promises';
 
 const ensureTempDirExists = async () => {
   try {
-    await fs.access('uploads/temp');
+    await fs.access('src/public/uploads/temp/');
   } catch {
-    await fs.mkdir('uploads/temp', { recursive: true });
+    await fs.mkdir('src/public/uploads/temp/', { recursive: true });
   }
 };
 
@@ -21,7 +21,7 @@ const generateUniqueFileName = (originalName: string): string => {
 const storage = multer.diskStorage({
   destination: async (_req, _file, cb) => {
     await ensureTempDirExists();
-    cb(null, 'uploads/temp/');
+    cb(null, 'src/public/uploads/temp/');
   },
   filename: (_req, file, cb) => {
     const uniqueName = generateUniqueFileName(file.originalname);
