@@ -38,7 +38,7 @@ app.use(errorHandler);
 
 async function startServer() {
   try {
-    const { PORT = 3001, DB_ADDRESS = 'mongodb://127.0.0.1:27017/weblarek' } = process.env;
+    const { PORT = 3000, DB_ADDRESS = 'mongodb://127.0.0.1:27017/weblarek' } = process.env;
     if (!DB_ADDRESS) throw new Error('DB_ADDRESS is required');
     if (!PORT) throw new Error('PORT is required');
 
